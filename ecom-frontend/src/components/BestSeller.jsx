@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
@@ -9,8 +9,7 @@ const BestSeller = () => {
 
   // 2. THE CLEAN FIX: Filter and cut the list down to 5 items directly!
   // This looks through your items, keeps only the ones marked as bestseller, and grabs the top 5.
-  const bestSeller = products.filter((item) => item.bestseller).slice(0, 5);
-
+  const bestSeller = useMemo(() => products.filter(item => item.bestseller).slice(0, 5), [products]);
   return (
     /* Outer Wrapper Box: Adds top and bottom spacing */
     <div className="my-10">

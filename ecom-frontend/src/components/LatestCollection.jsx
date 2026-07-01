@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
@@ -9,7 +9,7 @@ const LatestCollection = () => {
 
   // 2. THE FIX: Cut the list down to 10 directly! No useState, no useEffect.
   // Whenever the 'products' list updates, this line updates automatically.
-  const latestProducts = products.slice(0, 10);
+  const latestProducts = useMemo(() => products.slice(0, 10), [products]);
 
   return (
     /* Outer Wrapper Box */
