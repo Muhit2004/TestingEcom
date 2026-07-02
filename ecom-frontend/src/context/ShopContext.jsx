@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { products } from "../assets/frontend_assets/assets";
+import { useState } from "react";
 // 1. CREATE THE CONTEXT CHANNEL
 // This initializes the central data tube. Think of it as a broadcast frequency that
 // any component in your application can tune into to listen for shared store data.
@@ -14,6 +15,10 @@ const ShopContextProvider = (props) => {
   const currency = "$";
   const delivery_fee = 10;
 
+  const [search, setSearch] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+  const [visible, setVisible] = useState(false);
+
   // 3. THE UTILITY WAREHOUSE (VALUE OBJECT)
   // Everything you pack inside this object becomes instantly available to your whole app.
   // Right now we are packing the products database list, currency, and delivery fee.
@@ -21,6 +26,12 @@ const ShopContextProvider = (props) => {
     products,
     currency,
     delivery_fee,
+    search,
+    setSearch,
+    showSearch,
+    setShowSearch,
+    visible,
+    setVisible
   };
 
   return (

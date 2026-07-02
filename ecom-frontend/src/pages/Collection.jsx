@@ -6,7 +6,7 @@ import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
   // 1. Pulling the master data and search context
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
 
   // 2. The Memory (State)
   const [showFilter, setShowFilter] = useState(false);
@@ -35,7 +35,9 @@ const Collection = () => {
   const filterProducts = useMemo(() => {
     let pipeline = products.slice();
 
-
+    if (showSearch && search) {
+      pipeline = pipeline.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+    }
 
     // Apply Category
     if (category.length > 0) {
@@ -56,7 +58,7 @@ const Collection = () => {
       default:
         return pipeline;
     }
-  }, [products, category, subCategory, sortType]);
+  }, [products, category, subCategory, sortType, showSearch, search]);
 
   // 5. The Wired-Up HTML
   return (

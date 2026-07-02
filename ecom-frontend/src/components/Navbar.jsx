@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { assets } from "../assets/frontend_assets/assets.js";
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ShopContext } from "../context/ShopContext";
+import { useLocation } from "react-router-dom";
+
 
 /**
  * Navbar Component
@@ -14,8 +17,18 @@ import { useState } from "react";
 const Navbar = () => {
   // State hook to govern visibility of the sliding responsive mobile navigation drawer
   const [visible, setVisible] = useState(false);
+  const { setShowSearch } = useContext(ShopContext);
+  const location = useLocation();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    if (location) {
+      console.log(location.pathname);
+    }
+  }, [location]);
+
+
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       {/* =========================================================================
@@ -65,13 +78,20 @@ const Navbar = () => {
        - Aggregates interaction components (Search, Context Menus, Cart shortcuts) into right margin. 
        - Enforces uniform sizes ('w-5') and changes user pointer contexts across image boundaries.
        ========================================================================= */}
-      <div className="flex items-center gap-6">
+      <div
+        onClick={() => setShowSearch(true)}
+        onDoubleClick={() => setShowSearch(false)}
+
+        className="flex items-center gap-6">
         {/* Site-Wide Search Query Visibility Engine Launcher */}
-        <img
-          src={assets.search_icon}
-          alt="Search"
-          className="w-5 cursor-pointer"
-        />
+        {(location.pathname.includes('collection') || location.pathname.includes('product')) && (
+          <img
+            onClick={() => setShowSearch(true)}
+            src={assets.search_icon}
+            alt="Search"
+            className="w-5 cursor-pointer"
+          />
+        )}
 
         {/* =========================================================================
     UNIFIED RESPONSIVE PROFILE DROPDOWN
