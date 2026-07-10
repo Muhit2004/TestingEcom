@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { assets } from "../assets/frontend_assets/assets.js";
 import { Link, NavLink } from "react-router-dom";
 import { useState, useContext } from "react";
@@ -22,11 +22,6 @@ const Navbar = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    if (location) {
-      console.log(location.pathname);
-    }
-  }, [location]);
 
 
   return (
@@ -84,7 +79,7 @@ const Navbar = () => {
 
         className="flex items-center gap-6">
         {/* Site-Wide Search Query Visibility Engine Launcher */}
-        {(location.pathname.includes('collection') || location.pathname.includes('product')) && (
+        {(location.pathname.includes('collection')) && (
           <img
             onClick={() => setShowSearch(true)}
             src={assets.search_icon}
