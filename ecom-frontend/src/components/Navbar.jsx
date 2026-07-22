@@ -17,7 +17,7 @@ import { useLocation } from "react-router-dom";
 const Navbar = () => {
   // State hook to govern visibility of the sliding responsive mobile navigation drawer
   const [visible, setVisible] = useState(false);
-  const { setShowSearch } = useContext(ShopContext);
+  const { setShowSearch, getCartCount } = useContext(ShopContext);
   const location = useLocation();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -98,12 +98,13 @@ const Navbar = () => {
           onMouseEnter={() => setDropdownOpen(true)} // Desktop: Opens when mouse hovers over the container
           onMouseLeave={() => setDropdownOpen(false)} // Desktop: Closes when mouse moves away
         >
-          <img
+          <Link to="/login">  <img
             onClick={() => setDropdownOpen(!dropdownOpen)} // Mobile: Tapping the icon toggles it open and closed
             src={assets.profile_icon}
             alt="Profile"
             className="w-5 cursor-pointer"
           />
+          </Link>
 
           {/* FLOATING CONTEXT PANEL */}
           <div
@@ -131,12 +132,13 @@ const Navbar = () => {
         </div>
 
         {/* Global Cart Routing Core Entry point */}
-        <Link to="/cart">
+        <Link to="/cart" className="relative">
           <img
             src={assets.cart_icon}
             alt="Cart"
-            className="w-5 cursor-pointer"
+            className="w-5 min-w-5 cursor-pointer"
           />
+          <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>{getCartCount()}</p>
         </Link>
 
         {/* Mobile-Exclusive Menu Switch 

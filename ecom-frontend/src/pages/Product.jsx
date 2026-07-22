@@ -9,7 +9,7 @@ import RelatedProducts from '../components/RelatedProducts'
 const Product = () => {
 
   const { productId } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
@@ -21,7 +21,6 @@ const Product = () => {
       // .find() instantly grabs the correct product and stops searching
       const item = products.find((product) => product._id === productId);
 
-      console.log(item);
 
       // If the item exists, save it to memory
       if (item) {
@@ -85,7 +84,9 @@ const Product = () => {
               ))}
             </div>
           </div>
-          <button className='bg-black text-white py-3 px-8  active:bg-gray-700 cursor-pointer'>Add to Cart</button>
+          <button
+            onClick={() => addToCart(productData._id, size)}
+            className='bg-black text-white py-3 px-8  active:bg-gray-700 cursor-pointer'>Add to Cart</button>
           <hr className='mt-8 sm:w-4/5' />
           <div className='flex flex-col gap-1 text-sm text-gray-500 mt-5'>
             <p>100% Original Products</p>
